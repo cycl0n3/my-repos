@@ -3,6 +3,12 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# idea project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
@@ -152,3 +158,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# pdf, chm, djvu, epub
+*.pdf
+*.chm
+*.djvu
+*.epub
+
+# zip file
+*.zip
