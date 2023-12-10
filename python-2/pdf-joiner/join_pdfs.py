@@ -17,5 +17,5 @@ def join_pdfs(directory):
   print(f'Merged PDF saved to {output_path}')
 
 # Usage example
-directory = '/path/to/directory'
+directory = 'C:\\Users\\Millind\\Books\\ART'
 join_pdfs(directory)
