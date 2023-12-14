@@ -1,10 +1,12 @@
+import "@/Pages/Dashboard.css";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import AdminLayout from '@/Layouts/AdminLayout';
+import AdminLayout from "@/Layouts/AdminLayout";
 
 import { Head } from "@inertiajs/react";
 
 export default function Dashboard({ auth, users }) {
-    console.log('Dashboard', users);
+    console.log("Dashboard", users);
 
     return (
         <AuthenticatedLayout
@@ -35,6 +37,9 @@ export default function Dashboard({ auth, users }) {
                                                 Roles
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                Orders
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                                 Actions
                                             </th>
                                         </tr>
@@ -43,21 +48,39 @@ export default function Dashboard({ auth, users }) {
                                         {users.map((user) => (
                                             <tr key={user.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    {user.name}
+                                                    <div className="neon-glow-name">
+                                                        {user.name}
+                                                    </div>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    {user.email}
+                                                <td
+                                                    className={`px-6 py-4 whitespace-nowrap text-blue-500`}
+                                                >
+                                                    <a
+                                                        href={`users/info/${user.id}`}
+                                                    >
+                                                        {user.email}
+                                                    </a>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                <td
+                                                    className={`px-6 py-4 whitespace-nowrap ${
+                                                        user.roles === "ADMIN"
+                                                            ? "text-red-500"
+                                                            : "text-green-500"
+                                                    }`}
+                                                >
                                                     {user.roles}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <a
-                                                        href={`edit/${user.id}`}
-                                                        className="text-indigo-600 hover:text-indigo-900"
-                                                    >
-                                                        Edit
-                                                    </a>
+                                                    {user.orders.length}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="neon-glow-edit">
+                                                        <a
+                                                            href={`users/edit/${user.id}`}
+                                                        >
+                                                            edit
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}

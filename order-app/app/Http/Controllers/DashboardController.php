@@ -16,8 +16,12 @@ class DashboardController extends Controller
     $user = $request->user();
 
     if ($user->roles == 'ADMIN') {
+      $users = User::all();
+      // load orders
+      $users->load('orders');
+      
       return Inertia::render('Dashboard', [
-        'users' => User::all(),
+        'users' => $users,
       ]);
     } else {
       return Inertia::render('Dashboard', [
