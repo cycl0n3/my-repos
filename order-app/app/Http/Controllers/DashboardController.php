@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 use App\Models\User;
 
@@ -13,12 +11,18 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-  public function index(): Response
+  public function index(Request $request): Response
   {
-    $users = User::all();
-    
-    return Inertia::render('Dashboard', [
-      'users' => $users,
-    ]);
+    $user = $request->user();
+
+    if ($user->roles == 'ADMIN') {
+      return Inertia::render('Dashboard', [
+        'users' => User::all(),
+      ]);
+    } else {
+      return Inertia::render('Dashboard', [
+        'users' => [],
+      ]);
+    }
   }
 }
