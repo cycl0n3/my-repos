@@ -7,6 +7,8 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 
 import { Link } from '@inertiajs/react';
 
+import power from '../../images/molumen_multicolor_power_buttons_4.svg';
+
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
@@ -25,9 +27,6 @@ export default function Authenticated({ user, header, children }) {
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
-                                </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Users
                                 </NavLink>
                             </div>
                         </div>
@@ -60,8 +59,8 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link href={route('profile.edit')} className='neon--blue'>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('logout')} method="post" as="button" className='neon--red'>
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -111,7 +110,7 @@ export default function Authenticated({ user, header, children }) {
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Log Out 
                             </ResponsiveNavLink>
                         </div>
                     </div>

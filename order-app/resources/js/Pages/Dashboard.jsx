@@ -1,7 +1,7 @@
 import "@/Pages/Dashboard.css";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import AdminLayout from "@/Layouts/AdminLayout";
+import AdminLayout from "@/Layouts/AdminBlock";
 
 import { Head } from "@inertiajs/react";
 
@@ -13,7 +13,9 @@ export default function Dashboard({ auth, users }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Dashboard
+                    <p className="neon--heading">
+                        Dashboard
+                    </p>
                 </h2>
             }
         >
@@ -48,7 +50,7 @@ export default function Dashboard({ auth, users }) {
                                         {users.map((user) => (
                                             <tr key={user.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="neon-glow-name">
+                                                    <div className="neon--purple">
                                                         {user.name}
                                                     </div>
                                                 </td>
@@ -57,6 +59,7 @@ export default function Dashboard({ auth, users }) {
                                                 >
                                                     <a
                                                         href={`users/info/${user.id}`}
+                                                        className="neon--blue"
                                                     >
                                                         {user.email}
                                                     </a>
@@ -74,7 +77,7 @@ export default function Dashboard({ auth, users }) {
                                                     {user.orders.length}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="neon-glow-edit">
+                                                    <div className="neon--red">
                                                         <a
                                                             href={`users/edit/${user.id}`}
                                                         >
