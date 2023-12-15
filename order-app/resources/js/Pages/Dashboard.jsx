@@ -1,5 +1,7 @@
 import "@/Pages/Dashboard.css";
 
+import { useState, useEffect } from "react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AdminBlock from "@/Layouts/AdminBlock";
 
@@ -8,8 +10,20 @@ import { Head } from "@inertiajs/react";
 import manager from "../../images/the-manager.svg";
 import worker from "../../images/the-worker.svg";
 
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+function getOrders() {
+    return fetch(`/api/orders`)
+        .then((res) => res.json())
+}
+
 export default function Dashboard({ auth, users }) {
-    console.log("Dashboard", users);
+    const queryClient = useQueryClient();
+
+    const orderQuery = useQuery({
+        queryKey: ["orders"],
+        queryFn: getOrders,
+    });
 
     return (
         <AuthenticatedLayout
@@ -57,7 +71,13 @@ export default function Dashboard({ auth, users }) {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                0
+                                                {orderQuery.data ? (
+                                                    JSON.stringify(orderQuery.data)
+                                                ) : (
+                                                    <div className="neon--red">
+                                                        Loading...
+                                                    </div>
+                                                )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="neon--red">

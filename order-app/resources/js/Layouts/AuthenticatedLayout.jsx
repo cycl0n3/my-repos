@@ -7,8 +7,6 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 
 import { Link } from '@inertiajs/react';
 
-import power from '../../images/molumen_multicolor_power_buttons_4.svg';
-
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
