@@ -5,6 +5,9 @@ import AdminLayout from "@/Layouts/AdminBlock";
 
 import { Head } from "@inertiajs/react";
 
+import manager from "../../images/the-manager.svg";
+import worker from "../../images/the-worker.svg";
+
 export default function Dashboard({ auth, users }) {
     console.log("Dashboard", users);
 
@@ -71,7 +74,8 @@ export default function Dashboard({ auth, users }) {
                                                             : "text-green-500"
                                                     }`}
                                                 >
-                                                    {user.roles}
+                                                    {/* {user.roles} */}
+                                                    <img src={user.roles === "ADMIN" ? manager : worker} alt="roles" className="w-12 h-12 inline-block" />
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     {user.orders.length}
