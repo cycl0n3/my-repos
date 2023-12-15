@@ -52,3 +52,29 @@
       0 0 102px #0E41EE,
       0 0 151px #0E41EE;
 }
+
+.neon--green {
+  color: #ffffff;
+  text-shadow:
+    0 0 7px #00ff00,
+    0 0 10px #00ff00,
+    0 0 21px #00ff00,
+    0 0 42px #00ff00,
+    0 0 82px #00ff00,
+    0 0 92px #00ff00,
+    0 0 102px #00ff00,
+    0 0 151px #00ff00;
+}
+
+.neon--gray {
+  color: #ffffff;
+  text-shadow:
+    0 0 7px #808080,
+    0 0 10px #808080,
+    0 0 21px #808080,
+    0 0 42px #808080,
+    0 0 82px #808080,
+    0 0 92px #808080,
+    0 0 102px #808080,
+    0 0 151px #808080;
+}
