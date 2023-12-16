@@ -72,8 +72,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        Log::info('User: ' . $user);
-
+        // select order count for current user
         $orders = DB::select('SELECT COUNT(*) AS orders FROM orders WHERE user_id = ?', [$user->id]);
 
         return response()->json([

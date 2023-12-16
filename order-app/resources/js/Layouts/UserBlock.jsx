@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AdminBlock = ({ user, children }) => {
-  if (user.roles === 'ADMIN') {
+const UserBlock = ({user, children}) => {
+  if (user.roles === 'USER') {
     return (
       <>
         {children}
@@ -10,6 +10,6 @@ const AdminBlock = ({ user, children }) => {
   } else {
     return null;
   }
-}
+};
 
-export default AdminBlock;
+export default UserBlock;

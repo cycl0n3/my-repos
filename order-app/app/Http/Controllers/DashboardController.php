@@ -11,22 +11,25 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-  public function index(Request $request): Response
+  public function dashboard(Request $request): Response
   {
     $user = $request->user();
 
     if ($user->roles == 'ADMIN') {
-      $users = User::all();
-      // load orders
-      $users->load('orders');
-      
-      return Inertia::render('Dashboard', [
-        'users' => $users,
+      return Inertia::render('Admin/Dashboard', [
       ]);
     } else {
-      return Inertia::render('Dashboard', [
-        'users' => [],
+      return Inertia::render('User/Dashboard', [
       ]);
     }
+  }
+
+  public function dashboard_admin_users(Request $request): Response
+  {
+    $users = User::all();
+
+    return Inertia::render('Admin/UsersDashboard', [
+      'users' => $users,
+    ]);
   }
 }
