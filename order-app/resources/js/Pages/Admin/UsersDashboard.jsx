@@ -1,9 +1,6 @@
 import "@/Pages/Dashboard.css";
 
-import { useState, useEffect } from "react";
-
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import AdminBlock from "@/Layouts/AdminBlock";
 
 import { Head } from "@inertiajs/react";
 
