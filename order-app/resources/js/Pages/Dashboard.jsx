@@ -13,7 +13,7 @@ import worker from "../../images/the-worker.svg";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 function getOrders() {
-    return fetch(`/api/orders`)
+    return fetch(`/orders`)
         .then((res) => res.json())
 }
 
@@ -72,7 +72,7 @@ export default function Dashboard({ auth, users }) {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {orderQuery.data ? (
-                                                    JSON.stringify(orderQuery.data)
+                                                    JSON.stringify(orderQuery.data.orders)
                                                 ) : (
                                                     <div className="neon--red">
                                                         Loading...

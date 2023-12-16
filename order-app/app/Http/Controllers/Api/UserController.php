@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -65,13 +70,14 @@ class UserController extends Controller
     // get number of orders for current user using pure sql
     public function orders(Request $request)
     {
-        // $user = $request->user();
+        $user = $request->user();
 
-        // $orders = \DB::select('SELECT COUNT(*) AS orders FROM orders WHERE user_id = ?', [$user->id]);
+        Log::info('User: ' . $user);
+
+        $orders = DB::select('SELECT COUNT(*) AS orders FROM orders WHERE user_id = ?', [$user->id]);
 
         return response()->json([
-            'orders' => 0
+            'orders' => $orders[0]->orders,
         ]);
-
     }
 }
