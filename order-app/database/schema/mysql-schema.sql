@@ -43,7 +43,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -58,7 +58,26 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (8,'2023_12_17_080201_change_description_to_text',4),
 (9,'2023_12_17_091818_modify_orders_table',5),
 (10,'2023_12_17_092323_rename_order_number_column_in_orders_table',6),
-(11,'2023_12_17_092651_add_completed_column_to_orders_table',7);
+(11,'2023_12_17_092651_add_completed_column_to_orders_table',7),
+(12,'2023_12_17_093250_create_order_product_table',8),
+(13,'2023_12_17_093912_remove_order_uuid_column_from_orders_table',8);
+
+/*Table structure for table `order_product` */
+
+DROP TABLE IF EXISTS `order_product`;
+
+CREATE TABLE `order_product` (
+  `order_id` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`order_id`,`product_id`),
+  KEY `order_product_product_id_foreign` (`product_id`),
+  CONSTRAINT `order_product_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `order_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `order_product` */
 
 /*Table structure for table `orders` */
 
@@ -66,13 +85,11 @@ DROP TABLE IF EXISTS `orders`;
 
 CREATE TABLE `orders` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `order_uuid` char(36) NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
   `completed` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `orders_order_number_unique` (`order_uuid`),
   KEY `orders_user_id_foreign` (`user_id`),
   CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
