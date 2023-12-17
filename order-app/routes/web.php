@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
