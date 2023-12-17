@@ -10,71 +10,40 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // return 404 code
-        return response()->json([
-            'message' => 'Not Found',
-        ], 404);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // return 404 code
-        return response()->json([
-            'message' => 'Not Found',
-        ], 404);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // return 404 code
-        return response()->json([
-            'message' => 'Not Found',
-        ], 404);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        // return 404 code
-        return response()->json([
-            'message' => 'Not Found',
-        ], 404);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        // return 404 code
-        return response()->json([
-            'message' => 'Not Found',
-        ], 404);
-    }
-
-    // get number of orders for current user using pure sql
     public function orders(Request $request)
     {
         $user = $request->user();
+    
+        $orders = DB::table('orders')
+        ->join('products', 'orders.product_id', '=', 'products.id')
+        ->select('orders.*', 'products.name as product_name', 'products.price as product_price')
+        ->where('orders.user_id', '=', $user->id)
+        ->get();
+    
+        return view('orders', [
+            'orders' => $orders,
+        ]);
+    }
 
-        // select order count for current user
-        $orders = DB::select('SELECT COUNT(*) AS orders FROM orders WHERE user_id = ?', [$user->id]);
+    // User count
+    public function user_count(Request $request)
+    {
+        $user = $request->user();
 
-        return response()->json([
-            'orders' => $orders[0]->orders,
+        $user_count = DB::table('users')->count();
+
+        return view('user_count', [
+            'user_count' => $user_count,
+        ]);
+    }
+
+    // Get me
+    public function get_me(Request $request)
+    {
+        $user = $request->user();
+
+        return view('get_me', [
+            'user' => $user,
         ]);
     }
 }

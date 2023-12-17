@@ -36,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/admin/users', [DashboardController::class, 'dashboard_admin_users'])->name('dashboard.admin.users');
 
-    Route::get('/orders', [UserController::class, 'orders']);
+    Route::get('/me', [UserController::class, 'me']);
+    Route::get('/user_count', [UserController::class, 'user_count']);
 });
 
 require __DIR__.'/auth.php';
