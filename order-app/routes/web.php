@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/me', [UserController::class, 'me']);
     Route::get('/user_count', [UserController::class, 'user_count']);
+
+    Route::get('/product_count', [ProductController::class, 'product_count']);
 });
 
 require __DIR__.'/auth.php';

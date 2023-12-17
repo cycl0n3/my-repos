@@ -28,11 +28,10 @@ class UserController extends Controller
     // User count
     public function user_count(Request $request)
     {
-        $user = $request->user();
-
         $user_count = DB::table('users')->count();
 
-        return view('user_count', [
+        // return json response
+        return response()->json([
             'user_count' => $user_count,
         ]);
     }
@@ -42,7 +41,8 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        return view('get_me', [
+        // return json response
+        return response()->json([
             'user' => $user,
         ]);
     }

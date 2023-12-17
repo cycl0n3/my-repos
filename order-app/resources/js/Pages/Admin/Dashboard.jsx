@@ -6,9 +6,42 @@ import { Head } from "@inertiajs/react";
 
 import manager from "../../../images/the-manager.svg";
 
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    QueryClient,
+    QueryClientProvider,
+  } from '@tanstack/react-query'
+import { useState } from "react";
+
 export default function Dashboard({ auth }) {
-    const totalUsers = 100; // Replace with actual total users count
-    const totalProducts = 50; // Replace with actual total products count
+    const [totalUsers, setTotalUsers] = useState('???'); 
+    const [totalProducts, setTotalProducts] = useState('???'); 
+
+    const userCount = useQuery({
+        queryKey: ['userCount'], 
+        queryFn: async () => {
+            const res = await fetch('/user_count');
+            const data = await res.json();
+            
+            setTotalUsers(data.user_count);
+            
+            return data;
+        }
+    });
+
+    const productCount = useQuery({
+        queryKey: ['productCount'],
+        queryFn: async () => {
+            const res = await fetch('/product_count');
+            const data = await res.json();
+            
+            setTotalProducts(data.product_count);
+            
+            return data;
+        }
+    });
 
     return (
         <AuthenticatedLayout
