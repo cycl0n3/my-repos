@@ -12,16 +12,11 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'user_id',
-        'product_id',
+        'completed',
     ];
     
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function product()
-    {
-        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }
