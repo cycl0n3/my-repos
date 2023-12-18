@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BrandController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/me', [UserController::class, 'me']);
     Route::get('/user_count', [UserController::class, 'user_count']);
+    Route::get('/get_me', [UserController::class, 'get_me']);
+    Route::get('/brand_count', [BrandController::class, 'brand_count']);   
 
     Route::get('/product_count', [ProductController::class, 'product_count']);
 });
