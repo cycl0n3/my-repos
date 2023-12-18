@@ -42,6 +42,20 @@ export default function Authenticated({ user, header, children }) {
                                     >
                                         Users
                                     </NavLink>
+                                    <NavLink
+                                        href={route("dashboard.admin.products")}
+                                        active={route().current("dashboard.admin.products")}
+                                        className="neon--green"
+                                    >
+                                        Products
+                                    </NavLink>
+                                    <NavLink
+                                        href={route("dashboard.admin.brands")}
+                                        active={route().current("dashboard.admin.brands")}
+                                        className="neon--green"
+                                    >
+                                        Brands
+                                    </NavLink>
                                 </AdminBlock>
                                 <UserBlock user={user}>
                                     <NavLink

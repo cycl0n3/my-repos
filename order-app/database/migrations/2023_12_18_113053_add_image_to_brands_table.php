@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->boolean('completed')->default(false)->after('user_id');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->text('image')->nullable()->after('description');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('completed');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->dropColumn('image');
         });
     }
 };

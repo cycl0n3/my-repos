@@ -17,7 +17,7 @@ export default function UsersDashboard({ auth, users }) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Users Dashboard" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -43,8 +43,8 @@ export default function UsersDashboard({ auth, users }) {
                                 <tbody className="bg-dark divide-y divide-gray-200">
                                     {users.map((user) => (
                                         <tr key={user.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="neon--purple">
+                                            <td className="px-6 py-4 whitespace-nowrap text-purple-600">
+                                                <div className="--neon--purple">
                                                     {user.name}
                                                 </div>
                                             </td>
@@ -53,7 +53,7 @@ export default function UsersDashboard({ auth, users }) {
                                             >
                                                 <a
                                                     href={`users/info/${user.id}`}
-                                                    className="neon--blue"
+                                                    className="--neon--blue"
                                                 >
                                                     {user.email}
                                                 </a>
@@ -76,8 +76,8 @@ export default function UsersDashboard({ auth, users }) {
                                                     className="w-12 h-12 inline-block"
                                                 />
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="neon--red">
+                                            <td className="px-6 py-4 whitespace-nowrap text-red-600">
+                                                <div className="--neon--red">
                                                     <a
                                                         href={`users/edit/${user.id}`}
                                                     >

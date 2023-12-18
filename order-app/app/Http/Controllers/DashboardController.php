@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Brand;
 
 use Inertia\Inertia;
 use Inertia\Response;
@@ -30,6 +32,24 @@ class DashboardController extends Controller
 
     return Inertia::render('Admin/UsersDashboard', [
       'users' => $users,
+    ]);
+  }
+
+  public function dashboard_admin_products(Request $request): Response
+  {
+    $products = Product::all();
+    
+    return Inertia::render('Admin/ProductsDashboard', [
+      'products' => $products,
+    ]);
+  }
+
+  public function dashboard_admin_brands(Request $request): Response
+  {
+    $brands = Brand::all();
+    
+    return Inertia::render('Admin/BrandsDashboard', [
+      'brands' => $brands,
     ]);
   }
 }
