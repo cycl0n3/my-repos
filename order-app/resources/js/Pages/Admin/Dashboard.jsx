@@ -10,9 +10,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function Dashboard({ auth }) {
-    const [totalUsers, setTotalUsers] = useState("???");
-    const [totalProducts, setTotalProducts] = useState("???");
-    const [totalBrands, setTotalBrands] = useState("???");
+    const [totalUsers, setTotalUsers] = useState(null);
+    const [totalProducts, setTotalProducts] = useState(null);
+    const [totalBrands, setTotalBrands] = useState(null);
 
     const userCount = useQuery({
         queryKey: ["userCount"],
@@ -20,7 +20,7 @@ export default function Dashboard({ auth }) {
             const res = await fetch("/user_count");
             const data = await res.json();
 
-            setTotalUsers(data.user_count);
+            setTotalUsers("" + data.user_count);
 
             return data;
         },
@@ -32,7 +32,7 @@ export default function Dashboard({ auth }) {
             const res = await fetch("/product_count");
             const data = await res.json();
 
-            setTotalProducts(data.product_count);
+            setTotalProducts("" + data.product_count);
 
             return data;
         },
@@ -44,7 +44,7 @@ export default function Dashboard({ auth }) {
             const res = await fetch("/brand_count");
             const data = await res.json();
 
-            setTotalBrands(data.brand_count);
+            setTotalBrands("" + data.brand_count);
 
             return data;
         },
@@ -90,6 +90,9 @@ export default function Dashboard({ auth }) {
                                     </svg>
                                     <div class="ml-4">
                                         <h4 class="text-4xl font-bold text-gray-900">
+                                            {!totalBrands && (
+                                                <span className="loading loading-dots loading-lg"></span>
+                                            )}
                                             {totalBrands}
                                         </h4>
                                         <p class="mt-1.5 text-lg font-medium leading-tight text-gray-500">
@@ -119,6 +122,9 @@ export default function Dashboard({ auth }) {
                                     </svg>
                                     <div class="ml-4">
                                         <h4 class="text-4xl font-bold text-gray-900">
+                                            {!totalUsers && (
+                                                <span className="loading loading-dots loading-lg"></span>
+                                            )}
                                             {totalUsers}
                                         </h4>
                                         <p class="mt-1.5 text-lg font-medium leading-tight text-gray-500">
@@ -143,6 +149,9 @@ export default function Dashboard({ auth }) {
                                     </svg>
                                     <div class="ml-4">
                                         <h4 class="text-4xl font-bold text-gray-900">
+                                            {!totalProducts && (
+                                                <span className="loading loading-dots loading-lg"></span>
+                                            )}
                                             {totalProducts}
                                         </h4>
                                         <p class="mt-1.5 text-lg font-medium leading-tight text-gray-500">

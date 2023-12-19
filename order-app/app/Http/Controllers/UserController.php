@@ -30,6 +30,9 @@ class UserController extends Controller
     {
         $user_count = DB::table('users')->count();
 
+        // sleep for 3 seconds to simulate a slow request
+        // sleep(3);
+
         // return json response
         return response()->json([
             'user_count' => $user_count,

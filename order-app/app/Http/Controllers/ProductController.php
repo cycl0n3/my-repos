@@ -13,6 +13,9 @@ class ProductController extends Controller
     {
         $product_count = DB::table('products')->count();
 
+        // sleep for 3 seconds to simulate a slow request
+        // sleep(3);
+
         // return json response
         return response()->json([
             'product_count' => $product_count,

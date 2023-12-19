@@ -58,7 +58,7 @@ const BrandModal = () => {
                                     type="text"
                                     id="name"
                                     name="name"
-                                    className="border rounded w-full p-2"
+                                    className="input input-bordered w-full max-w-3xl"
                                     placeholder="Enter Name"
                                 />
                             </div>
@@ -73,7 +73,7 @@ const BrandModal = () => {
                                     type="text"
                                     id="url"
                                     name="url"
-                                    className="border rounded w-full p-2"
+                                    className="input input-bordered w-full max-w-3xl"
                                     placeholder="Enter URL"
                                 />
                             </div>
@@ -87,7 +87,7 @@ const BrandModal = () => {
                                 <textarea
                                     id="description"
                                     name="description"
-                                    className="border rounded w-full p-2"
+                                    className="textarea textarea-bordered textarea-lg w-4/5"
                                     placeholder="Enter Description"
                                 ></textarea>
                             </div>
@@ -98,14 +98,13 @@ const BrandModal = () => {
                                 >
                                     Image
                                 </label>
-                                <input
-                                    type="file"
+                                <input type="file" 
                                     id="image"
                                     name="image"
-                                    className="border rounded w-full p-2"
+                                    className="file-input file-input-bordered file-input-warning w-full max-w-3xl" 
                                 />
                             </div>
-                            <div className="text-right">
+                            <div className="text-right py-3">
                                 {/* Button to submit form */}
                                 <button
                                     type="submit"
