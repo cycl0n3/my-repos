@@ -20,13 +20,11 @@ const BrandModal = () => {
     return (
         <>
             {/* Button to open the modal */}
-            <button
-                className="ml-5 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-700 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
-                onClick={openModal}
-            >
-                <svg
+            <button class="ml-5 btn rounded-full text-white bg-yellow-700 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
+                onClick={openModal}>
+            <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 mr-2"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -140,9 +138,9 @@ export default function UsersDashboard({ auth, brands }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                // <h2 className="prose font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 className="prose">
                     <span className="neon--heading">Brands Dashboard</span>
-
                     <BrandModal />
                 </h2>
             }
