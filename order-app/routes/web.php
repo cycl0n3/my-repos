@@ -46,6 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/brand_count', [BrandController::class, 'brand_count']);   
 
     Route::get('/product_count', [ProductController::class, 'product_count']);
+
+    // route to create brand
+    Route::post('/admin/create_brand', [BrandController::class, 'create_brand'])->name('admin.create_brand');
 });
 
 require __DIR__.'/auth.php';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Brand;
 
@@ -25,23 +26,51 @@ class BrandController extends Controller
     // create new brand
     public function create_brand(Request $request)
     {
-        // validate request
-        $request->validate([
-            'name' => 'required|unique:brands',
+        Log::info('BrandController::create_brand()', [
+            'name' => $request->name,
+            'url' => $request->url,
+            'description' => $request->description,
+            'image' => $request->image,
         ]);
 
-        // create new brand
-        $brand = new Brand;
-        
-        $brand->name = $request->name;
-        $brand->description = $request->description;
+        try {
+            // create new brand
+            $brand = new Brand;
 
+            $imageMimeType = $request->image->getClientMimeType();
+            
+            if (in_array($imageMimeType, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'])) {
+                $base64Image = 'data:' . $imageMimeType . ';base64,' . base64_encode(file_get_contents($request->image));
 
-        $brand->save();
+                $brand->name = $request->name;
+                $brand->url = $request->url ?? '';
+                $brand->description = $request->description;
 
-        // return json response
-        return response()->json([
-            'message' => 'Brand created successfully',
-        ]);
+                $brand->image = $base64Image;
+
+                // sleep(3);
+
+                $brand->save();
+            } else {
+                // invalid image
+                return response()->json([
+                    'message' => 'Invalid image',
+                    'type' => 'error',
+                ]);
+            }
+
+            // return json response
+            return response()->json([
+                'message' => 'Brand created successfully',
+                'type' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('BrandController::create_brand() - ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'Error creating brand',
+                'type' => 'error',
+            ]);
+        }
     }
 }

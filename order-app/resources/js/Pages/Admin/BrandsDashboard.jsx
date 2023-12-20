@@ -6,8 +6,14 @@ import { Head } from "@inertiajs/react";
 
 import { useState } from "react";
 
+import { set, useForm } from "react-hook-form";
+
+import axios from "axios";
+
 const BrandModal = () => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const [submitting, setSubmitting] = useState(false);
 
     const openModal = () => {
         setIsOpen(true);
@@ -17,10 +23,78 @@ const BrandModal = () => {
         setIsOpen(false);
     };
 
+    const { register, 
+        handleSubmit, 
+        watch,
+        reset,
+        formState: { errors }
+    } = useForm();
+
+    const onSubmit = async (data) => {
+        console.log(data);
+
+        setSubmitting(true);
+
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("url", data.url);
+        formData.append("description", data.description);
+        formData.append("image", data.image[0]);
+
+        try {
+            const res = await axios.post(route("admin.create_brand"), formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            const data = res.data;
+
+            if(data.type === "success") {
+                document.getElementById('success_modal').showModal();
+                reset();
+                closeModal();
+            }
+
+            if(data.type === "error") {
+                console.log(data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        setSubmitting(false);
+    };
+
     return (
         <>
+            <dialog id="success_modal" className="modal">
+                <div className="modal-box">
+                    <div role="alert" className="alert alert-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>Your brand has been saved!</span>
+                    </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <dialog id="error_modal" className="modal">
+                <div className="modal-box">
+                    <div role="alert" className="alert alert-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>Your brand has not been saved!</span>
+                    </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
             {/* Button to open the modal */}
-            <button class="ml-5 btn rounded-full text-white bg-yellow-700 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
+            <button className="ml-5 btn rounded-full text-white bg-yellow-700 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
                 onClick={openModal}>
             <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +120,7 @@ const BrandModal = () => {
                     <div className="bg-black p-8 rounded shadow-md w-2/3">
                         <h2 className="text-xl font-bold mb-4">Insert Data</h2>
                         {/* Form to insert data */}
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-4">
                                 <label
                                     htmlFor="name"
@@ -58,9 +132,12 @@ const BrandModal = () => {
                                     type="text"
                                     id="name"
                                     name="name"
+                                    {...register("name", { required: true })}
+                                    autoComplete="off"
                                     className="input input-bordered w-full max-w-3xl"
                                     placeholder="Enter Name"
                                 />
+                                {errors.name && <p>This field is required</p>}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -73,6 +150,7 @@ const BrandModal = () => {
                                     type="text"
                                     id="url"
                                     name="url"
+                                    {...register("url", { required: false })}
                                     className="input input-bordered w-full max-w-3xl"
                                     placeholder="Enter URL"
                                 />
@@ -87,6 +165,7 @@ const BrandModal = () => {
                                 <textarea
                                     id="description"
                                     name="description"
+                                    {...register("description", { required: false })}
                                     className="textarea textarea-bordered textarea-lg w-4/5"
                                     placeholder="Enter Description"
                                 ></textarea>
@@ -101,28 +180,34 @@ const BrandModal = () => {
                                 <input type="file" 
                                     id="image"
                                     name="image"
+                                    {...register("image", { required: false })}
+                                    accept="*.jpg, *.jpeg, *.png"
                                     className="file-input file-input-bordered file-input-warning w-full max-w-3xl" 
                                 />
                             </div>
                             <div className="text-right py-3">
                                 {/* Button to submit form */}
-                                <button
-                                    type="submit"
-                                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        closeModal();
-                                    }}
-                                >
-                                    Submit
-                                </button>
-                                {/* Button to close the modal */}
-                                <button
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-                                    onClick={closeModal}
-                                >
-                                    Close
-                                </button>
+                                
+                                {submitting && (
+                                    <span className="loading loading-bars loading-lg"></span>
+                                )}
+
+                                {!submitting && (<>
+                                    <button
+                                        type="submit"
+                                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Submit
+                                    </button>
+                                    {/* Button to close the modal */}
+                                    <button
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+                                        type="button"
+                                        onClick={closeModal}
+                                    >
+                                        Close
+                                    </button>
+                                </>)}
                             </div>
                         </form>
                     </div>
