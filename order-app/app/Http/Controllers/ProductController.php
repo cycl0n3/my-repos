@@ -21,4 +21,17 @@ class ProductController extends Controller
             'product_count' => $product_count,
         ]);
     }
+
+    public function get_products(Request $request)
+    {
+        $products = Product::all();
+
+        // sleep for 3 seconds to simulate a slow request
+        // sleep(3);
+
+        // return json response
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
 }

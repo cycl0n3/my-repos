@@ -4,9 +4,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import { Head } from "@inertiajs/react";
 
-import manager from "../../../images/the-manager.svg";
-
 import { useQuery } from "@tanstack/react-query";
+
 import { useState } from "react";
 
 export default function Dashboard({ auth }) {

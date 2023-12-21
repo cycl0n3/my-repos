@@ -73,4 +73,17 @@ class BrandController extends Controller
             ]);
         }
     }
+
+    // get all brands
+    public function get_brands(Request $request)
+    {
+        $brands = Brand::orderBy('name', 'asc')->get();
+
+        // sleep(3);
+
+        // return json response
+        return response()->json([
+            'brands' => $brands,
+        ]);
+    }
 }

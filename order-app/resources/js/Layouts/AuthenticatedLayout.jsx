@@ -36,22 +36,22 @@ export default function Authenticated({ user, header, children }) {
                                         Dashboard
                                     </NavLink>
                                     <NavLink
-                                        href={route("dashboard.admin.users")}
-                                        active={route().current("dashboard.admin.users")}
+                                        href={route("admin.users.dashboard")}
+                                        active={route().current("admin.users.dashboard")}
                                         className="neon--green"
                                     >
                                         Users
                                     </NavLink>
                                     <NavLink
-                                        href={route("dashboard.admin.products")}
-                                        active={route().current("dashboard.admin.products")}
+                                        href={route("admin.products.dashboard")}
+                                        active={route().current("admin.products.dashboard")}
                                         className="neon--green"
                                     >
                                         Products
                                     </NavLink>
                                     <NavLink
-                                        href={route("dashboard.admin.brands")}
-                                        active={route().current("dashboard.admin.brands")}
+                                        href={route("admin.brands.dashboard")}
+                                        active={route().current("admin.brands.dashboard")}
                                         className="neon--green"
                                     >
                                         Brands
@@ -182,11 +182,25 @@ export default function Authenticated({ user, header, children }) {
                                 Dashboard
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
-                                href={route("dashboard.admin.users")}
-                                active={route().current("dashboard.admin.users")}
+                                href={route("admin.users.dashboard")}
+                                active={route().current("admin.users.dashboard")}
                                 className="neon--green"
                             >
                                 Users
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.products.dashboard")}
+                                active={route().current("admin.products.dashboard")}
+                                className="neon--green"
+                            >
+                                Products
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.brands.dashboard")}
+                                active={route().current("admin.brands.dashboard")}
+                                className="neon--green"
+                            >
+                                Brands
                             </ResponsiveNavLink>
                         </AdminBlock>
                         <UserBlock user={user}>

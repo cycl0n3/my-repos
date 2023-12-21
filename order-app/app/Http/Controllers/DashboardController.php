@@ -44,11 +44,11 @@ class DashboardController extends Controller
 		]);
 	}
 
-	public function dashboard_admin_brands(Request $request): Response
+	public function admin_brands_dashboard(Request $request): Response
 	{
 		$brands = Brand::all();
 
-		return Inertia::render('Admin/BrandsDashboard', [
+		return Inertia::render('Admin/Brands/Dashboard', [
 			'brands' => $brands,
 		]);
 	}
