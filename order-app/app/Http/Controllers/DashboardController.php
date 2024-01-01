@@ -4,52 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Brand;
-
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Http\RedirectResponse;
+
 class DashboardController extends Controller
 {
-	public function dashboard(Request $request): Response
+	public function dashboard(Request $request): Response | RedirectResponse
 	{
 		$user = $request->user();
 
 		if ($user->roles == 'ADMIN') {
-			return Inertia::render('Admin/Dashboard', [
-			]);
+			// redirect o admin dashboard
+			return redirect(route('admin.dashboard'));
 		} else {
 			return Inertia::render('User/Dashboard', [
 			]);
 		}
-	}
-
-	public function dashboard_admin_users(Request $request): Response
-	{
-		$users = User::all();
-
-		return Inertia::render('Admin/UsersDashboard', [
-			'users' => $users,
-		]);
-	}
-
-	public function dashboard_admin_products(Request $request): Response
-	{
-		$products = Product::all();
-
-		return Inertia::render('Admin/ProductsDashboard', [
-			'products' => $products,
-		]);
-	}
-
-	public function admin_brands_dashboard(Request $request): Response
-	{
-		$brands = Brand::all();
-
-		return Inertia::render('Admin/Brands/Dashboard', [
-			'brands' => $brands,
-		]);
 	}
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\AdminController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -37,9 +38,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/admin/users/dashboard', [DashboardController::class, 'dashboard_admin_users'])->name('admin.users.dashboard');
-    Route::get('/admin/products/dashboard', [DashboardController::class, 'dashboard_admin_products'])->name('admin.products.dashboard');
-    Route::get('/admin/brands/dashboard', [DashboardController::class, 'admin_brands_dashboard'])->name('admin.brands.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
+    Route::get('/admin/users/dashboard', [AdminController::class, 'admin_users_dashboard'])->name('admin.users.dashboard');
+    Route::get('/admin/products/dashboard', [AdminController::class, 'admin_products_dashboard'])->name('admin.products.dashboard');
+    Route::get('/admin/brands/dashboard', [AdminController::class, 'admin_brands_dashboard'])->name('admin.brands.dashboard');
+    Route::get('/admin/brands/new', [AdminController::class, 'admin_brands_new'])->name('admin.brands.new');
 
     Route::get('/me', [UserController::class, 'me'])->name('me');
     Route::get('/user_count', [UserController::class, 'user_count'])->name('user_count');
