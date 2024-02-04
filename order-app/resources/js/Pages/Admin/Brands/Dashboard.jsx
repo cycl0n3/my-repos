@@ -116,12 +116,6 @@ export default function Dashboard({ auth }) {
                                                     >
                                                         edit
                                                     </a>
-                                                    <a
-                                                        href="#"
-                                                        className="px-2"
-                                                    >
-                                                        delete
-                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
