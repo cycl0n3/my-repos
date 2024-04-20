@@ -1,37 +1,54 @@
-def has_rus_in_english(text):
-  """
-  Checks if a sentence contains potential Russian words written in English alphabets.
+import os
+import shutil
+import fnmatch
 
-  Args:
-      text: The string to check.
+def list_files_with_ru(directory):
+    files_with_ru = []
+    files_without_ru = []
 
-  Returns:
-      True if the sentence might contain Russian written in English alphabets, 
-      False otherwise. (This is a possibility, not confirmation)
-  """
-  replacements = {
-      "a": "a", "b": "b", "v": "v", "g": "g", "d": "d",
-      "e": "e", "yo": "yo", "zh": "zh", "z": "z", "i": "i",
-      "y": "y", "k": "k", "l": "l", "m": "m", "n": "n",
-      "o": "o", "p": "p", "r": "r", "s": "s", "t": "t",
-      "u": "u", "f": "f", "ch": "ch", "sh": "sh", "shch": "shch",
-      "c": "ts", "yu": "yu", "ya": "ya"
-  }
+    for root, _, files in os.walk(directory):
+        for file_name in files:
+            full_path = os.path.join(root, file_name)
+            if "(ru)" in file_name:
+                files_with_ru.append(full_path)
+            else:
+                files_without_ru.append(full_path)
 
-  # Remove punctuation and special characters before processing
-  allowed_chars = set("abcdefghijklmnopqrstuvwxyz ")
-  text = "".join(char for char in text.lower() if char in allowed_chars)
-  words = text.split()
-  for word in words:
-    temp_word = word
-    for cyrillic, english in replacements.items():
-      temp_word = temp_word.replace(english, cyrillic)
-    if len(temp_word) > 2 and 2 <= len(temp_word) <= 15:
-      return True
-  return False
+    return files_with_ru, files_without_ru
 
-sentence1 = "Ajayan P.M., Schadler L.S., Braun P.V. Nanocomposite Science and Technology"
-sentence2 = "Anur#ev V.I. Spravochnik konstruktora-mashinostroitelja, tom 1"
+def move_files_with_ru(files_with_ru, target_dir_ru):
+    for file_path in files_with_ru:
+        relative_path = os.path.relpath(file_path, start=directory)
+        target_path = os.path.join(target_dir_ru, relative_path)
+        
+        os.makedirs(os.path.dirname(target_path), exist_ok=True)
+        
+        print("copying: ", target_path)
+        
+        try:
+          shutil.copy2(file_path, target_path)
+        except:
+            print('error copying: ', target_path)
 
-print(f"Sentence 1: {has_rus_in_english(sentence1)}")
-print(f"Sentence 2: {has_rus_in_english(sentence2)}")
+if __name__ == "__main__":
+    directory = input("Enter the directory path: ")
+    files_with_ru, files_without_ru = list_files_with_ru(directory)
+
+    # print("\nFiles containing '(ru)':")
+    # for file_path in files_with_ru:
+    #     print(file_path)
+
+    # print("\nFiles not containing '(ru)':")
+    # for file_path in files_without_ru:
+    #     print(file_path)
+
+    target_dir_en = os.path.join(directory, "EN")
+    target_dir_ru = os.path.join(directory, "RU")
+    
+    os.makedirs(target_dir_en, exist_ok=True)
+    os.makedirs(target_dir_ru, exist_ok=True)
+
+    move_files_with_ru(files_with_ru, target_dir_ru)
+    move_files_with_ru(files_without_ru, target_dir_en)
+
+    print("\nFiles moved successfully!")
