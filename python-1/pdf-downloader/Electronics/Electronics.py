@@ -34,7 +34,7 @@ for link in tqdm.tqdm(links, colour='green', desc='Downloading'):
     link_text = unquote(link['href'])
 
     # Check if the link text ends with any of the extensions
-    if link_text.endswith(tuple(extensions)):
+    if link_text.endswith(tuple(extensions)) and not "(ru)" in link_text:
         # Get the link url
         link_url = url + link['href']
 

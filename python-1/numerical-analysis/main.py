@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import sympy as sp
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from sympy.abc import x, k
 
+# Define symbolic variable
+t = sp.symbols('t')
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Define function
+def f(t):
+  return 1/t
 
+F = sp.fourier_transform(sp.exp(-x**2), x, k)
+print(F)
+# sqrt(pi)*exp(-pi**2*k**2)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+F = sp.fourier_transform(sp.exp(-x**2), x, k, noconds=False)
+print(F)
+# (sqrt(pi)*exp(-pi**2*k**2), True)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Calculate Fourier Transform
+F = sp.fourier_transform(f(t), t, k)
+print(F)
